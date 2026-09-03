@@ -11,6 +11,22 @@ dashboard provides live plotting, CSV logging, and on-the-fly tuning.
 
 ---
 
+## The System
+
+![Ball and Beam system](PID_Ball_And_Beam.jpeg)
+
+The rig is a lightweight **cardboard channel beam** that pivots at its left end
+on a 3D-printed bracket. A green ball rolls freely along the channel. At the
+**left end**, the Sharp IR sensor points down the track and measures the ball's
+distance. At the **right end**, the MG-996R servo drives a pushrod linkage that
+raises and lowers the beam to tilt it. The **ESP32 and breadboard** sit in the
+middle wiring it all together, and the **laptop** (left) runs the Python
+dashboard for live plotting and tuning. Tilting the beam changes the ball's
+acceleration; the PID loop continuously adjusts the tilt to park the ball at the
+commanded distance.
+
+---
+
 ## Hardware
 
 | Part | Notes |
@@ -20,10 +36,29 @@ dashboard provides live plotting, CSV logging, and on-the-fly tuning.
 | **MG-996R** servo | Powered from a **separate 4.8–6 V supply** (not the ESP32 pin) |
 | Beam + ball rig | Sensor mounted at one end, pointing down the track |
 
-**Wiring notes**
-- Servo V+ to its own battery/supply; **common ground** with the ESP32.
-- Add a **1000 µF capacitor** across the servo power rails to absorb current spikes.
-- The MG-996R needs **≥4.8 V** — a drained pack (e.g. 3 V) will stall the servo.
+**Wiring**
+
+| From | Wire | To |
+|------|------|----|
+| ESP32 `GND` | black | breadboard ground rail |
+| IR sensor V+ | red | ESP32 `Vin` (~5 V from USB) |
+| IR sensor signal | yellow | ESP32 `D27` |
+| IR sensor GND | black | ESP32 `GND` |
+| Servo signal | yellow | ESP32 `D26` |
+| Servo GND | brown | ESP32 `GND` (shared ground) |
+| Servo V+ | red | breadboard power rail |
+| Battery + | red | breadboard power rail (same line as servo red) |
+| Battery − | black | breadboard ground (same line as ESP32 GND) |
+
+The servo is powered from the **battery rail**, not the ESP32 — but all grounds
+are **common** (ESP32 GND ↔ servo GND ↔ battery −), which is essential for the
+servo signal to be referenced correctly.
+
+> ⚠️ **Power warning:** the photo/build uses a **9 V battery** for the servo.
+> The MG-996R is rated **4.8–7.2 V**, so 9 V is **over-voltage** and a 9 V PP3
+> can't supply the servo's stall current (>2 A) — expect brownouts and possible
+> servo damage. Use a **4×AA pack (6 V)** or a **5–6 V UBEC/buck converter**
+> instead, and add a **1000 µF capacitor** across the servo power rails.
 
 ---
 

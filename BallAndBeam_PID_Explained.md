@@ -9,6 +9,15 @@ beam with an **MG-996R servo** to hold the ball at a commanded distance.
 
 ## 1. System Overview
 
+![Ball and Beam system](PID_Ball_And_Beam.jpeg)
+
+The rig is a lightweight **cardboard channel beam** that pivots at its left end
+on a 3D-printed bracket, with a green ball rolling freely along the channel. The
+Sharp IR sensor sits at the **left end** pointing down the track to measure the
+ball's distance; the MG-996R servo at the **right end** drives a pushrod linkage
+that tilts the beam. The ESP32 and breadboard (center) run the control loop, and
+the laptop runs the Python dashboard for live plotting and tuning.
+
 ```
   ┌────────────┐   distance (cm)   ┌──────────────┐   angle (deg)   ┌─────────┐
   │ IR Sensor  │ ────────────────▶ │  ESP32 (PID) │ ──────────────▶ │  Servo  │
