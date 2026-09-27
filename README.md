@@ -146,18 +146,4 @@ Well-behaved baseline: `kp = 6`, `ki = 1.1`, `kd = 4` (direct-to-degree scale).
 
 ## Demo Video
 
-GitHub can display a short clip. Options:
-
-1. **Drag-and-drop (easiest):** edit this README on GitHub's web UI and drag your
-   `.mp4` into the editor — GitHub hosts it and inserts a player link. No LFS needed.
-2. **Commit a GIF:** convert the clip to `docs/demo.gif` (kept small) and it
-   renders inline via the image tag at the top of this file.
-3. **Git LFS:** if you want the raw `.mp4` in the repo,
-   `git lfs track "*.mp4"` first (raw videos are git-ignored by default here).
-
----
-
-## License
-
-Personal hobby project. Add a license of your choice (e.g. MIT) if you want
-others to reuse it.
+BallAndBeamPIDdemo_Aug27_2026_github.mp4
